@@ -4,6 +4,7 @@ import {
   CreateTodoResponse,
   postTodo,
 } from '@/apis/api/todos/postTodo';
+import { UpdateTodoRequest, putTodo } from '@/apis/api/todos/putTodo';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
 import { Todo } from '@/types/Todo';
 import { useEffect, useState } from 'react';
@@ -33,6 +34,40 @@ const TodoPage = () => {
       }
     } catch (e: unknown) {
       if (isAxiosErrorFromWantedPreOnboardingServer<CreateTodoResponse>(e)) {
+        const { message } = e.response.data;
+        alert(message); // TODO: replace with toast
+      }
+    }
+  };
+
+  const handleCheckboxClick = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    todo: Todo,
+  ) => {
+    e.preventDefault();
+
+    const checked = e.target.checked;
+
+    const { id, todo: todoText } = todo;
+    const newUpdateTodoRequest: UpdateTodoRequest = {
+      todo: todoText,
+      isCompleted: checked,
+    };
+    try {
+      const res = await putTodo(id, newUpdateTodoRequest);
+      if (res.status === 200) {
+        const { id, todo: todoText, isCompleted } = res.data;
+        const newTodos = todos.map((todo) => {
+          if (todo.id === id) {
+            const newTodo: Todo = { id, todo: todoText, isCompleted };
+            return newTodo;
+          }
+          return todo;
+        });
+        setTodos(newTodos);
+      }
+    } catch (e: unknown) {
+      if (isAxiosErrorFromWantedPreOnboardingServer(e)) {
         const { message } = e.response.data;
         alert(message); // TODO: replace with toast
       }
@@ -76,7 +111,11 @@ const TodoPage = () => {
         {todos.map((todo) => (
           <li key={todo.id}>
             <label>
-              <input type="checkbox" checked={todo.isCompleted} />
+              <input
+                type="checkbox"
+                checked={todo.isCompleted}
+                onChange={(e) => handleCheckboxClick(e, todo)}
+              />
               <span>{todo.todo}</span>
             </label>
             <button data-testid="modify-button">수정</button>
