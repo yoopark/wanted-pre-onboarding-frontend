@@ -2,14 +2,11 @@ import { SigninResponse, postSignin } from '@/apis/api/auth/postSignin';
 import { ACCESS_TOKEN_KEY } from '@/apis/constants';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
 import { ROUTES } from '@/routes/ROUTES';
+import type { SigninFormData } from '@/types/SignFormData';
 import { useForm } from '@/utils/useForm';
+import { verifySignFormData } from '@/utils/verifySignFormData';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
-type SigninFormData = {
-  email: string;
-  password: string;
-};
 
 const SigninPage = () => {
   const navigate = useNavigate();
@@ -20,20 +17,8 @@ const SigninPage = () => {
   const [disabled, setDisabled] = useState<boolean>(true);
 
   useEffect(() => {
-    // TODO: 기본 유효성 검사 로직이 같으니 추상화
-    const verifySigninFormData = (formData: SigninFormData) => {
-      const { email, password } = formData;
-      if (!email.includes('@')) {
-        return false;
-      }
-      if (password.length < 8) {
-        return false;
-      }
-      return true;
-    };
-
-    const isValidSigninFormData = verifySigninFormData(formData);
-    setDisabled(!isValidSigninFormData);
+    const isValidSignFormData = verifySignFormData(formData);
+    setDisabled(!isValidSignFormData);
   }, [formData]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

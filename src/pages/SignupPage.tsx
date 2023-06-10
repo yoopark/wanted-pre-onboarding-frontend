@@ -1,14 +1,11 @@
 import { SignupResponse, postSignup } from '@/apis/api/auth/postSignup';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
 import { ROUTES } from '@/routes/ROUTES';
+import type { SignupFormData } from '@/types/SignFormData';
 import { useForm } from '@/utils/useForm';
+import { verifySignFormData } from '@/utils/verifySignFormData';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-interface SignupFormData {
-  email: string;
-  password: string;
-}
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -19,19 +16,8 @@ const SignupPage = () => {
   const [disabled, setDisabled] = useState<boolean>(true);
 
   useEffect(() => {
-    const verifySignupFormData = (formData: SignupFormData) => {
-      const { email, password } = formData;
-      if (!email.includes('@')) {
-        return false;
-      }
-      if (password.length < 8) {
-        return false;
-      }
-      return true;
-    };
-
-    const isValidSignupFormData = verifySignupFormData(formData);
-    setDisabled(!isValidSignupFormData);
+    const isValidSignFormData = verifySignFormData(formData);
+    setDisabled(!isValidSignFormData);
   }, [formData]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
