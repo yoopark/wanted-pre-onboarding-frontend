@@ -1,7 +1,8 @@
+import { isStringArrayType } from '@/utils/isStringArrayType';
 import { isAxiosError } from 'axios';
 
 type WantedPreOnboardingServerError = {
-  message: string;
+  message: string | string[];
   statusCode: number;
 };
 
@@ -20,7 +21,10 @@ const isWantedPreOnboardingFrontendServerError = (
   if (!('message' in data) || !('statusCode' in data)) {
     return false;
   }
-  if (typeof data.message !== 'string' || typeof data.statusCode !== 'number') {
+  if (
+    (typeof data.message !== 'string' && !isStringArrayType(data.message)) ||
+    typeof data.statusCode !== 'number'
+  ) {
     return false;
   }
   return true;
