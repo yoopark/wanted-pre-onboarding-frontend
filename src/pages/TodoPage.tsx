@@ -1,5 +1,9 @@
 const TodoPage = () => {
-  return <p>Todo Page</p>;
+  return (
+    <>
+      <h1>TODO</h1>
+    </>
+  );
 };
 
 export default TodoPage;
