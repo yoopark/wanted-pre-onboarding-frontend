@@ -1,3 +1,4 @@
+import { deleteTodo } from '@/apis/api/todos/deleteTodo';
 import { getTodos } from '@/apis/api/todos/getTodos';
 import {
   CreateTodoRequest,
@@ -74,6 +75,27 @@ const TodoPage = () => {
     }
   };
 
+  const handleDeleteBtnClick = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: number,
+  ) => {
+    e.preventDefault();
+
+    try {
+      const res = await deleteTodo(id);
+      if (res.status === 204) {
+        alert('삭제되었습니다.');
+        const newTodos = todos.filter((todo) => todo.id !== id);
+        setTodos(newTodos);
+      }
+    } catch (e: unknown) {
+      if (isAxiosErrorFromWantedPreOnboardingServer(e)) {
+        const { message } = e.response.data;
+        alert(message); // TODO: replace with toast
+      }
+    }
+  };
+
   useEffect(() => {
     const fetchTodos = async () => {
       try {
@@ -119,7 +141,12 @@ const TodoPage = () => {
               <span>{todo.todo}</span>
             </label>
             <button data-testid="modify-button">수정</button>
-            <button data-testid="delete-button">삭제</button>
+            <button
+              data-testid="delete-button"
+              onClick={(e) => handleDeleteBtnClick(e, todo.id)}
+            >
+              삭제
+            </button>
           </li>
         ))}
       </ul>
