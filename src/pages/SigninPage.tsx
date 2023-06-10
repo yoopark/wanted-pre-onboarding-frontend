@@ -1,8 +1,8 @@
 import { SigninResponse, postSignin } from '@/apis/api/auth/postSignin';
-import { ACCESS_TOKEN_KEY } from '@/apis/constants';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
 import { ROUTES } from '@/routes/ROUTES';
 import type { SigninFormData } from '@/types/SignFormData';
+import { setAccessToken } from '@/utils/localStorage';
 import { useForm } from '@/utils/useForm';
 import { verifySignFormData } from '@/utils/verifySignFormData';
 import { useEffect, useState } from 'react';
@@ -26,7 +26,7 @@ const SigninPage = () => {
     try {
       const res = await postSignin(formData);
       if (res.status === 200) {
-        localStorage.setItem(ACCESS_TOKEN_KEY, res.data.access_token);
+        setAccessToken(res.data.access_token);
         alert('로그인 성공'); // TODO: replace with toast
         navigate(ROUTES.TODO);
       }

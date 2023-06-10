@@ -1,3 +1,5 @@
+import { AuthGuard } from '@/components/guards/AuthGuard';
+import { NoAuthGuard } from '@/components/guards/NoAuthGuard';
 import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ROUTES } from './ROUTES';
@@ -18,30 +20,34 @@ export const AppRoutes = () => {
           </Suspense>
         }
       />
-      <Route
-        path={ROUTES.SIGNIN}
-        element={
-          <Suspense>
-            <SigninPage />
-          </Suspense>
-        }
-      />
-      <Route
-        path={ROUTES.SIGNUP}
-        element={
-          <Suspense>
-            <SignupPage />
-          </Suspense>
-        }
-      />
-      <Route
-        path={ROUTES.TODO}
-        element={
-          <Suspense>
-            <TodoPage />
-          </Suspense>
-        }
-      />
+      <Route element={<NoAuthGuard />}>
+        <Route
+          path={ROUTES.SIGNIN}
+          element={
+            <Suspense>
+              <SigninPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path={ROUTES.SIGNUP}
+          element={
+            <Suspense>
+              <SignupPage />
+            </Suspense>
+          }
+        />
+      </Route>
+      <Route element={<AuthGuard />}>
+        <Route
+          path={ROUTES.TODO}
+          element={
+            <Suspense>
+              <TodoPage />
+            </Suspense>
+          }
+        />
+      </Route>
     </Routes>
   );
 };
