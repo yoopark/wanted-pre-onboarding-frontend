@@ -1,7 +1,6 @@
 import { isAxiosError } from 'axios';
 
 type WantedPreOnboardingServerError = {
-  error: string;
   message: string;
   statusCode: number;
 };
@@ -18,14 +17,10 @@ const isWantedPreOnboardingFrontendServerError = (
   if (typeof data !== 'object' || data === null) {
     return false;
   }
-  if (!('error' in data) || !('message' in data) || !('statusCode' in data)) {
+  if (!('message' in data) || !('statusCode' in data)) {
     return false;
   }
-  if (
-    typeof data.error !== 'string' ||
-    typeof data.message !== 'string' ||
-    typeof data.statusCode !== 'number'
-  ) {
+  if (typeof data.message !== 'string' || typeof data.statusCode !== 'number') {
     return false;
   }
   return true;
