@@ -1,4 +1,5 @@
 import { useForm } from '@/utils/useForm';
+import { useEffect, useState } from 'react';
 
 interface SignupFormData {
   email: string;
@@ -10,6 +11,24 @@ const SignupPage = () => {
     email: '',
     password: '',
   });
+
+  const [disabled, setDisabled] = useState<boolean>(true);
+
+  useEffect(() => {
+    const verifySignupFormData = (formData: SignupFormData) => {
+      const { email, password } = formData;
+      if (!email.includes('@')) {
+        return false;
+      }
+      if (password.length < 8) {
+        return false;
+      }
+      return true;
+    };
+
+    const isValidSignupFormData = verifySignupFormData(formData);
+    setDisabled(!isValidSignupFormData);
+  }, [formData]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,7 +51,9 @@ const SignupPage = () => {
           value={formData.password}
           onChange={handleChange}
         />
-        <button data-testid="signup-button">회원가입</button>
+        <button data-testid="signup-button" disabled={disabled}>
+          회원가입
+        </button>
       </form>
     </>
   );
