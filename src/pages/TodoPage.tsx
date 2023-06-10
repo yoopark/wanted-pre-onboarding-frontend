@@ -1,3 +1,4 @@
+import { getTodos } from '@/apis/api/todos/getTodos';
 import {
   CreateTodoRequest,
   CreateTodoResponse,
@@ -5,7 +6,7 @@ import {
 } from '@/apis/api/todos/postTodo';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
 import { Todo } from '@/types/Todo';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const TodoPage = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -37,6 +38,28 @@ const TodoPage = () => {
       }
     }
   };
+
+  useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const res = await getTodos();
+        if (res.status === 200) {
+          const newTodos = res.data.map(({ id, todo, isCompleted }) => ({
+            id,
+            todo,
+            isCompleted,
+          }));
+          setTodos(newTodos);
+        }
+      } catch (e: unknown) {
+        if (isAxiosErrorFromWantedPreOnboardingServer(e)) {
+          const { message } = e.response.data;
+          alert(message); // TODO: replace with toast
+        }
+      }
+    };
+    fetchTodos();
+  }, []);
 
   return (
     <>
