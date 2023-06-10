@@ -1,5 +1,9 @@
+import { SignupResponse, postSignup } from '@/apis/api/auth/postSignup';
+import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
+import { ROUTES } from '@/routes/ROUTES';
 import { useForm } from '@/utils/useForm';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface SignupFormData {
   email: string;
@@ -7,11 +11,11 @@ interface SignupFormData {
 }
 
 const SignupPage = () => {
+  const navigate = useNavigate();
   const { formData, handleChange } = useForm<SignupFormData>({
     email: '',
     password: '',
   });
-
   const [disabled, setDisabled] = useState<boolean>(true);
 
   useEffect(() => {
@@ -30,9 +34,20 @@ const SignupPage = () => {
     setDisabled(!isValidSignupFormData);
   }, [formData]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const res = await postSignup(formData);
+      if (res.status === 201) {
+        alert('회원가입 성공'); // TODO: replace with toast
+        navigate(ROUTES.SIGNIN);
+      }
+    } catch (e: unknown) {
+      if (isAxiosErrorFromWantedPreOnboardingServer<SignupResponse>(e)) {
+        const { message } = e.response.data;
+        alert(message); // TODO: replace with toast
+      }
+    }
   };
 
   return (
