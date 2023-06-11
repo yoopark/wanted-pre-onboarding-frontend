@@ -8,6 +8,6 @@ export type SignupRequest = {
 
 export type SignupResponse = void;
 
-export const postSignup = (data: SignupRequest) => {
+export const signup = (data: SignupRequest) => {
   return apiJsonInstance.post<void>(API_ROUTES.SIGNUP, data);
 };
