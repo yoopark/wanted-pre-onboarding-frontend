@@ -15,6 +15,7 @@ export const SigninForm = () => {
     password: '',
   });
   const [disabled, setDisabled] = useState<boolean>(true);
+  const [passwordShown, setPasswordShown] = useState<boolean>(false);
 
   useEffect(() => {
     const isValidSignFormData = verifySignFormData(formData);
@@ -40,6 +41,11 @@ export const SigninForm = () => {
       }
     }
   };
+
+  const handleCheckboxChange = () => {
+    setPasswordShown((cur) => !cur);
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <input
@@ -50,11 +56,19 @@ export const SigninForm = () => {
       />
       <input
         data-testid="password-input"
-        type="password"
+        type={!passwordShown ? 'password' : 'text'}
         name="password"
         value={formData.password}
         onChange={handleChange}
       />
+      <label>
+        <input
+          type="checkbox"
+          checked={passwordShown}
+          onChange={handleCheckboxChange}
+        />
+        비밀번호 보이기
+      </label>
       <button data-testid="signin-button" disabled={disabled}>
         로그인
       </button>
