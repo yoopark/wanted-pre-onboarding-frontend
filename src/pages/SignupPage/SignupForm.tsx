@@ -18,15 +18,11 @@ export const SignupForm = () => {
   });
   const [disabled, setDisabled] = useState<boolean>(true);
   const [passwordShown, setPasswordShown] = useState<boolean>(false);
-  const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
-  const [isValidPassword, setIsValidPassword] = useState<boolean>(false);
 
   useEffect(() => {
     const { email, password } = formData;
     const isValidEmail = verifyEmailConstraint(email);
     const isValidPassword = verifyPasswordConstraint(password);
-    setIsValidEmail(isValidEmail);
-    setIsValidPassword(isValidPassword);
     setDisabled(!(isValidEmail && isValidPassword));
   }, [formData]);
 
