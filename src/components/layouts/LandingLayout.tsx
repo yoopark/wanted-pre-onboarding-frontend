@@ -2,6 +2,7 @@ import { Footer } from '@/components/elements/Footer';
 import { Header } from '@/components/elements/Header';
 import styled from '@emotion/styled';
 import { Outlet } from 'react-router-dom';
+import { glassmorphism } from './glassmorphism';
 
 export const LandingLayout = () => {
   return (
@@ -21,5 +22,5 @@ const Layout = styled.div`
   margin: auto;
   padding: 0 1rem;
   min-height: 100vh;
-  background-color: #ffffff;
+  ${glassmorphism}
 `;
