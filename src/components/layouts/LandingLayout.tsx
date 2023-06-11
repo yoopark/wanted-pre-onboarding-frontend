@@ -1,12 +1,14 @@
 import styled from '@emotion/styled';
 import { Outlet } from 'react-router-dom';
-import { Header } from '../elements/Header';
+import { Header } from '@/components/elements/Header';
+import { Footer } from '@/components/elements/Footer';
 
 export const LandingLayout = () => {
   return (
     <Layout>
       <Header />
       <Outlet />
+      <Footer />
     </Layout>
   );
 };
