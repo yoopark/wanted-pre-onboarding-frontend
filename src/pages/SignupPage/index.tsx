@@ -48,6 +48,7 @@ const SignupPage = () => {
         />
         <input
           data-testid="password-input"
+          type="password"
           name="password"
           value={formData.password}
           onChange={handleChange}
