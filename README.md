@@ -21,6 +21,7 @@ $ npm start
 
 - React
 - TypeScript
+- @emotion/styled
 - axios
 - prettier & eslint
 
@@ -41,12 +42,12 @@ $ npm start
 
 ### 폴더 구조
 
-- apis / components / features / pages / providers / routes / types / utils
-- pages 안에 features 들을 넣지 않고 features 폴더를 별도로 둠
+- apis / assets / components / pages / providers / routes / styles / types / utils
+- pages 안에 features 들을 넣는 방식으로 나눔
 
 ### 라우팅
 
-- 페이지 별 lazy import
+- Outlet을 충실히 활용하여 Guard, Layout 등 처리
 - AuthGuard & NoAuthGuard를 이용하여 access token 존재 여부 검사하여 코드 응집도를 높임
 
 ### Type Safety
@@ -56,10 +57,15 @@ $ npm start
   - 에러의 타입이 명시되진 않았지만 여러 에러 상황을 발생시켜 받은 케이스들로 타입 추론
 - Response Error를 제외하고 any & unknown을 사용하지 않음
 
-## v2.0 개발할 내용
+### UI
 
-- UI 개선
-- 로그아웃 기능 추가
-- 파일명, 폴더 구조 리팩토링
+- 그냥 하면 지루해서 바나나 컨셉 + 글래스모피즘 배경
+- 내용이 별로 없어서 모바일 기준으로만 제작
+
+## v2.1 개발할 내용
+
+- 더 엄밀한 리팩토링
+- jest 도입
 - useMemo, useCallback을 이용한 렌더링 최적화
 - input change의 경우 useRef를 이용하여 렌더링 방지
+- 알림 대신 toast 사용
