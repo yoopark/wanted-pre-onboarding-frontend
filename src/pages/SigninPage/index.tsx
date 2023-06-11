@@ -1,4 +1,4 @@
-import { SigninResponse, postSignin } from '@/apis/api/auth/postSignin';
+import { SigninResponse, signin } from '@/apis/api/auth/signin';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
 import { ROUTES } from '@/routes/ROUTES';
 import type { SigninFormData } from '@/types/SignFormData';
@@ -24,7 +24,7 @@ const SigninPage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await postSignin(formData);
+      const res = await signin(formData);
       if (res.status === 200) {
         setAccessToken(res.data.access_token);
         alert('로그인 성공'); // TODO: replace with toast

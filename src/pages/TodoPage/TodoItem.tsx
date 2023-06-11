@@ -1,8 +1,8 @@
 import {
   UpdateTodoRequest,
   UpdateTodoResponse,
-  putTodo,
-} from '@/apis/api/todos/putTodo';
+  updateTodo,
+} from '@/apis/api/todos/updateTodo';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
 import type { Todo } from '@/types/Todo';
 import { useState } from 'react';
@@ -29,12 +29,12 @@ export const TodoItem = ({
     const checked = e.target.checked;
 
     const { id, todo: todoText } = todo;
-    const newUpdateTodoRequest: UpdateTodoRequest = {
+    const updateTodoRequest: UpdateTodoRequest = {
       todo: todoText,
       isCompleted: checked,
     };
     try {
-      const res = await putTodo(id, newUpdateTodoRequest);
+      const res = await updateTodo(id, updateTodoRequest);
       if (res.status === 200) {
         const { id, todo: todoText, isCompleted } = res.data;
         const newTodo = { id, todo: todoText, isCompleted };
@@ -73,7 +73,7 @@ export const TodoItem = ({
     e.preventDefault();
 
     const { id, isCompleted } = todo;
-    const newUpdateTodoRequest: UpdateTodoRequest = {
+    const updateTodoRequest: UpdateTodoRequest = {
       todo: modifyTodoInput,
       isCompleted,
     };
@@ -81,7 +81,7 @@ export const TodoItem = ({
       return;
     }
     try {
-      const res = await putTodo(id, newUpdateTodoRequest);
+      const res = await updateTodo(id, updateTodoRequest);
       if (res.status === 200) {
         const { id, todo: todoText, isCompleted } = res.data;
         const newTodo = { id, todo: todoText, isCompleted };

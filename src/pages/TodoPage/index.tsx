@@ -1,11 +1,11 @@
-import { GetTodosResponse, getTodos } from '@/apis/api/todos/getTodos';
 import {
   CreateTodoRequest,
   CreateTodoResponse,
-  postTodo,
-} from '@/apis/api/todos/postTodo';
+  createTodo,
+} from '@/apis/api/todos/createTodo';
+import { GetTodosResponse, getTodos } from '@/apis/api/todos/getTodos';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
-import { TodoList } from '@/features/TodoPage/TodoList';
+import { TodoList } from './TodoList';
 import { Todo } from '@/types/Todo';
 import { useEffect, useState } from 'react';
 
@@ -21,11 +21,11 @@ const TodoPage = () => {
   const handleAddBtnClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const newCreateTodoRequest: CreateTodoRequest = {
+    const createTodoRequest: CreateTodoRequest = {
       todo: todoInput,
     };
     try {
-      const res = await postTodo(newCreateTodoRequest);
+      const res = await createTodo(createTodoRequest);
       if (res.status === 201) {
         const { id, todo, isCompleted } = res.data;
         const newTodo: Todo = { id, todo, isCompleted };

@@ -1,6 +1,6 @@
 import { AuthGuard } from '@/components/guards/AuthGuard';
 import { NoAuthGuard } from '@/components/guards/NoAuthGuard';
-import NotFoundPage from '@/pages/404';
+import NotFoundPage from '@/pages/Error/404';
 import LandingPage from '@/pages/LandingPage';
 import SigninPage from '@/pages/SigninPage';
 import SignupPage from '@/pages/SignupPage';

@@ -1,4 +1,4 @@
-import { SignupResponse, postSignup } from '@/apis/api/auth/postSignup';
+import { SignupResponse, signup } from '@/apis/api/auth/signup';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
 import { ROUTES } from '@/routes/ROUTES';
 import type { SignupFormData } from '@/types/SignFormData';
@@ -23,7 +23,7 @@ const SignupPage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await postSignup(formData);
+      const res = await signup(formData);
       if (res.status === 201) {
         alert('회원가입 성공'); // TODO: replace with toast
         navigate(ROUTES.SIGNIN);
