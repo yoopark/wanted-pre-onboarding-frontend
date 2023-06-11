@@ -5,7 +5,7 @@ import {
 } from '@/apis/api/todos/createTodo';
 import { GetTodosResponse, getTodos } from '@/apis/api/todos/getTodos';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
-import { TodoList } from '@/features/TodoPage/TodoList';
+import { TodoList } from './TodoList';
 import { Todo } from '@/types/Todo';
 import { useEffect, useState } from 'react';
 
