@@ -1,53 +1,23 @@
 import { AuthGuard } from '@/components/guards/AuthGuard';
 import { NoAuthGuard } from '@/components/guards/NoAuthGuard';
 import NotFoundPage from '@/pages/404';
-import { Suspense, lazy } from 'react';
+import LandingPage from '@/pages/LandingPage';
+import SigninPage from '@/pages/SigninPage';
+import SignupPage from '@/pages/SignupPage';
+import TodoPage from '@/pages/TodoPage';
 import { Route, Routes } from 'react-router-dom';
 import { ROUTES } from './ROUTES';
-
-const LandingPage = lazy(() => import('@/pages/LandingPage'));
-const SigninPage = lazy(() => import('@/pages/SigninPage'));
-const SignupPage = lazy(() => import('@/pages/SignupPage'));
-const TodoPage = lazy(() => import('@/pages/TodoPage'));
 
 export const AppRoutes = () => {
   return (
     <Routes>
-      <Route
-        path={ROUTES.ROOT}
-        element={
-          <Suspense>
-            <LandingPage />
-          </Suspense>
-        }
-      />
+      <Route path={ROUTES.ROOT} element={<LandingPage />} />
       <Route element={<NoAuthGuard />}>
-        <Route
-          path={ROUTES.SIGNIN}
-          element={
-            <Suspense>
-              <SigninPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path={ROUTES.SIGNUP}
-          element={
-            <Suspense>
-              <SignupPage />
-            </Suspense>
-          }
-        />
+        <Route path={ROUTES.SIGNIN} element={<SigninPage />} />
+        <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
       </Route>
       <Route element={<AuthGuard />}>
-        <Route
-          path={ROUTES.TODO}
-          element={
-            <Suspense>
-              <TodoPage />
-            </Suspense>
-          }
-        />
+        <Route path={ROUTES.TODO} element={<TodoPage />} />
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
