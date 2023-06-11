@@ -1,6 +1,7 @@
 import { AuthGuard } from '@/components/guards/AuthGuard';
 import { NoAuthGuard } from '@/components/guards/NoAuthGuard';
 import { LandingLayout } from '@/components/layouts/LandingLayout';
+import { MainLayout } from '@/components/layouts/MainLayout';
 import NotFoundPage from '@/pages/Error/404';
 import LandingPage from '@/pages/LandingPage';
 import SigninPage from '@/pages/SigninPage';
@@ -19,10 +20,12 @@ export const AppRoutes = () => {
           <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
         </Route>
       </Route>
-      <Route element={<AuthGuard />}>
-        <Route path={ROUTES.TODO} element={<TodoPage />} />
+      <Route element={<MainLayout />}>
+        <Route element={<AuthGuard />}>
+          <Route path={ROUTES.TODO} element={<TodoPage />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
-      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };

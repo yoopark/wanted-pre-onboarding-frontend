@@ -7,6 +7,7 @@ import { GetTodosResponse, getTodos } from '@/apis/api/todos/getTodos';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
 import { LogoutBtn } from '@/components/elements/LogoutBtn';
 import { Todo } from '@/types/Todo';
+import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { TodoList } from './TodoList';
 
@@ -64,20 +65,29 @@ const TodoPage = () => {
   }, []);
 
   return (
-    <>
+    <Layout>
       <h1>TODO</h1>
-      <input
-        data-testid="new-todo-input"
-        value={todoInput}
-        onChange={handleTodoInputChange}
-      />
-      <button data-testid="new-todo-add-button" onClick={handleAddBtnClick}>
-        추가
-      </button>
+      <label>
+        <input
+          data-testid="new-todo-input"
+          value={todoInput}
+          onChange={handleTodoInputChange}
+        />
+        <button data-testid="new-todo-add-button" onClick={handleAddBtnClick}>
+          추가
+        </button>
+      </label>
       <TodoList todos={todos} setTodos={setTodos} />
       <LogoutBtn />
-    </>
+    </Layout>
   );
 };
+
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+`;
 
 export default TodoPage;
