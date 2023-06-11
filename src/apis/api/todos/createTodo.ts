@@ -12,6 +12,6 @@ export type CreateTodoResponse = {
   userId: number;
 };
 
-export const postTodo = (data: CreateTodoRequest) => {
+export const createTodo = (data: CreateTodoRequest) => {
   return apiAuthJsonInstance.post<CreateTodoResponse>(API_ROUTES.TODO, data);
 };

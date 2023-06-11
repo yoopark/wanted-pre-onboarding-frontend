@@ -1,9 +1,9 @@
-import { GetTodosResponse, getTodos } from '@/apis/api/todos/getTodos';
 import {
   CreateTodoRequest,
   CreateTodoResponse,
-  postTodo,
-} from '@/apis/api/todos/postTodo';
+  createTodo,
+} from '@/apis/api/todos/createTodo';
+import { GetTodosResponse, getTodos } from '@/apis/api/todos/getTodos';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
 import { TodoList } from '@/features/TodoPage/TodoList';
 import { Todo } from '@/types/Todo';
@@ -25,7 +25,7 @@ const TodoPage = () => {
       todo: todoInput,
     };
     try {
-      const res = await postTodo(newCreateTodoRequest);
+      const res = await createTodo(newCreateTodoRequest);
       if (res.status === 201) {
         const { id, todo, isCompleted } = res.data;
         const newTodo: Todo = { id, todo, isCompleted };
