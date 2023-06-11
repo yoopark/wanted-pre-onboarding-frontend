@@ -1,5 +1,6 @@
 import { AuthGuard } from '@/components/guards/AuthGuard';
 import { NoAuthGuard } from '@/components/guards/NoAuthGuard';
+import NotFoundPage from '@/pages/404';
 import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ROUTES } from './ROUTES';
@@ -48,6 +49,7 @@ export const AppRoutes = () => {
           }
         />
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };
