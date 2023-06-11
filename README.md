@@ -1,46 +1,65 @@
-# Getting Started with Create React App
+# 원티드 프리온보딩 프론트엔드 인턴십 사전과제 (2023년 6월)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 인적사항
 
-## Available Scripts
+이름 : 박용준
 
-In the project directory, you can run:
+## 배포 링크
 
-### `npm start`
+(이후 추가할 예정)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 프로젝트 실행 방법
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```shell
+$ git clone https://github.com/yoopark/wanted-pre-onboarding-frontend
+$ cd wanted-pre-onboarding-frontend/
+$ npm install
+$ npm start
+```
 
-### `npm test`
+## 기술 스택
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- React
+- TypeScript
+- axios
+- prettier & eslint
 
-### `npm run build`
+## 중점을 둔 지점
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Git
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- main / develop / feature / release / hotfix 를 이용하는 Git-Flow 전략을 충실히 지킴
+- Conventional Commit
+- main branch protection을 적용, PR 이후 Squash and merge 방식으로 develop에 push 하여 커밋의 가독성을 높임
+- pull_request_template를 이용하여 PR 문서의 일관성을 높임
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### axios
 
-### `npm run eject`
+- 첫 사용이지만 최대한 Req & Res 시 진행하는 절차들을 섞지 않으려 노력함
+- JWT token을 axios interceptor를 활용하여 주입하는 방식으로 코드 응집도를 높임
+- apis 폴더를 처음 도입해보았지만, api / constants / services / utils(make instance, etc.) 로 기능별로 잘게 나누려 노력함
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 폴더 구조
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- apis / components / features / pages / providers / routes / types / utils
+- pages 안에 features 들을 넣지 않고 features 폴더를 별도로 둠
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 라우팅
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- 페이지 별 lazy import
+- AuthGuard & NoAuthGuard를 이용하여 access token 존재 여부 검사하여 코드 응집도를 높임
 
-## Learn More
+### Type Safety
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- 원티드 서버에서 오는 에러 메세지를 알림으로 띄워주려 노력함.
+  - `isAxiosErrorFromWantedPreOnboardingServer`라는 이름의 함수를 제작
+  - 에러의 타입이 명시되진 않았지만 여러 에러 상황을 발생시켜 받은 케이스들로 타입 추론
+- Response Error를 제외하고 any & unknown을 사용하지 않음
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## v2.0 개발할 내용
+
+- UI 개선
+- 로그아웃 기능 추가
+- 파일명, 폴더 구조 리팩토링
+- useMemo, useCallback을 이용한 렌더링 최적화
+- input change의 경우 useRef를 이용하여 렌더링 방지
