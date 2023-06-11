@@ -1,13 +1,17 @@
-import { GetTodosResponse, getTodos } from '@/apis/api/todos/getTodos';
 import {
   CreateTodoRequest,
   CreateTodoResponse,
-  postTodo,
-} from '@/apis/api/todos/postTodo';
+  createTodo,
+} from '@/apis/api/todos/createTodo';
+import { GetTodosResponse, getTodos } from '@/apis/api/todos/getTodos';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
-import { TodoList } from '@/features/TodoPage/TodoList';
+import { LogoutBtn } from '@/components/elements/LogoutBtn';
+import { FormLabel } from '@/components/styled/FormLabel';
+import { H1 } from '@/components/styled/H1';
 import { Todo } from '@/types/Todo';
+import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
+import { TodoList } from './TodoList';
 
 const TodoPage = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -21,11 +25,11 @@ const TodoPage = () => {
   const handleAddBtnClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const newCreateTodoRequest: CreateTodoRequest = {
+    const createTodoRequest: CreateTodoRequest = {
       todo: todoInput,
     };
     try {
-      const res = await postTodo(newCreateTodoRequest);
+      const res = await createTodo(createTodoRequest);
       if (res.status === 201) {
         const { id, todo, isCompleted } = res.data;
         const newTodo: Todo = { id, todo, isCompleted };
@@ -63,19 +67,29 @@ const TodoPage = () => {
   }, []);
 
   return (
-    <>
-      <h1>TODO</h1>
-      <input
-        data-testid="new-todo-input"
-        value={todoInput}
-        onChange={handleTodoInputChange}
-      />
-      <button data-testid="new-todo-add-button" onClick={handleAddBtnClick}>
-        추가
-      </button>
+    <Layout>
+      <H1>TODO</H1>
+      <FormLabel>
+        <input
+          data-testid="new-todo-input"
+          value={todoInput}
+          onChange={handleTodoInputChange}
+        />
+        <button data-testid="new-todo-add-button" onClick={handleAddBtnClick}>
+          추가
+        </button>
+      </FormLabel>
       <TodoList todos={todos} setTodos={setTodos} />
-    </>
+      <LogoutBtn />
+    </Layout>
   );
 };
+
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5rem;
+`;
 
 export default TodoPage;
