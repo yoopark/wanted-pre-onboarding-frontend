@@ -5,6 +5,7 @@ import type { SignupFormData } from '@/types/SignFormData';
 import { useForm } from '@/utils/useForm';
 import { verifyEmailConstraint } from '@/utils/verifyEmailConstraint';
 import { verifyPasswordConstraint } from '@/utils/verifyPasswordConstraint';
+import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -49,20 +50,26 @@ export const SignupForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        data-testid="email-input"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-      />
-      <input
-        data-testid="password-input"
-        type={!passwordShown ? 'password' : 'text'}
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-      />
+    <Form onSubmit={handleSubmit}>
+      <label>
+        이메일
+        <input
+          data-testid="email-input"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        비밀번호
+        <input
+          data-testid="password-input"
+          type={!passwordShown ? 'password' : 'text'}
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+      </label>
       <label>
         <input
           type="checkbox"
@@ -76,6 +83,12 @@ export const SignupForm = () => {
       <button data-testid="signup-button" disabled={disabled}>
         회원가입
       </button>
-    </form>
+    </Form>
   );
 };
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
