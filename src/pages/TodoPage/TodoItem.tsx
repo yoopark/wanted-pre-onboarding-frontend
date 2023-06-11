@@ -78,6 +78,7 @@ export const TodoItem = ({
       isCompleted,
     };
     if (modifyTodoInput === todo.todo) {
+      setIsModifyMode(false);
       return;
     }
     try {

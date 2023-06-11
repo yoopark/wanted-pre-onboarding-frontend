@@ -5,9 +5,10 @@ import {
 } from '@/apis/api/todos/createTodo';
 import { GetTodosResponse, getTodos } from '@/apis/api/todos/getTodos';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
-import { TodoList } from './TodoList';
+import { LogoutBtn } from '@/components/elements/LogoutBtn';
 import { Todo } from '@/types/Todo';
 import { useEffect, useState } from 'react';
+import { TodoList } from './TodoList';
 
 const TodoPage = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -74,6 +75,7 @@ const TodoPage = () => {
         추가
       </button>
       <TodoList todos={todos} setTodos={setTodos} />
+      <LogoutBtn />
     </>
   );
 };
