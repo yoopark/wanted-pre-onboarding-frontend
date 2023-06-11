@@ -6,7 +6,7 @@
 
 ## 배포 링크
 
-(이후 추가할 예정)
+[wanted-pre-onboarding-frontend-yopark.vercel.app](https://wanted-pre-onboarding-frontend-yopark.vercel.app/)
 
 ## 프로젝트 실행 방법
 
