@@ -9,19 +9,44 @@ import { useState } from 'react';
 
 type TodoItemProps = {
   todo: Todo;
-  onCheckboxClick: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onDeleteBtnClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   setTodoInTodos: (todo: Todo) => void;
 };
 
 export const TodoItem = ({
   todo,
-  onCheckboxClick,
   onDeleteBtnClick,
   setTodoInTodos,
 }: TodoItemProps) => {
   const [isModifyMode, setIsModifyMode] = useState<boolean>(false);
   const [modifyTodoInput, setModifyTodoInput] = useState<string>(todo.todo);
+
+  const handleCheckboxClick = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    e.preventDefault();
+
+    const checked = e.target.checked;
+
+    const { id, todo: todoText } = todo;
+    const newUpdateTodoRequest: UpdateTodoRequest = {
+      todo: todoText,
+      isCompleted: checked,
+    };
+    try {
+      const res = await putTodo(id, newUpdateTodoRequest);
+      if (res.status === 200) {
+        const { id, todo: todoText, isCompleted } = res.data;
+        const newTodo = { id, todo: todoText, isCompleted };
+        setTodoInTodos(newTodo);
+      }
+    } catch (e: unknown) {
+      if (isAxiosErrorFromWantedPreOnboardingServer<UpdateTodoResponse>(e)) {
+        const { message } = e.response.data;
+        alert(message); // TODO: replace with toast
+      }
+    }
+  };
 
   const handleModifyBtnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -80,7 +105,7 @@ export const TodoItem = ({
             <input
               type="checkbox"
               checked={todo.isCompleted}
-              onChange={onCheckboxClick}
+              onChange={handleCheckboxClick}
             />
             <span>{todo.todo}</span>
           </label>
