@@ -16,6 +16,7 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 4rem;
 `;
 
 export default SigninPage;
