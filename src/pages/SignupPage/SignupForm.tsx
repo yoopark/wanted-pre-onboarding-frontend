@@ -1,5 +1,6 @@
 import { SignupResponse, signup } from '@/apis/api/auth/signup';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
+import { FormLabel } from '@/components/styled/FormLabel';
 import { ROUTES } from '@/routes/ROUTES';
 import type { SignupFormData } from '@/types/SignFormData';
 import { useForm } from '@/utils/useForm';
@@ -51,7 +52,7 @@ export const SignupForm = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <label>
+      <FormLabel>
         이메일
         <input
           data-testid="email-input"
@@ -59,8 +60,8 @@ export const SignupForm = () => {
           value={formData.email}
           onChange={handleChange}
         />
-      </label>
-      <label>
+      </FormLabel>
+      <FormLabel>
         비밀번호
         <input
           data-testid="password-input"
@@ -69,15 +70,15 @@ export const SignupForm = () => {
           value={formData.password}
           onChange={handleChange}
         />
-      </label>
-      <label>
+      </FormLabel>
+      <FormLabel>
         <input
           type="checkbox"
           checked={passwordShown}
           onChange={handleCheckboxChange}
         />
         비밀번호 보이기
-      </label>
+      </FormLabel>
       {!isValidEmail && <p>이메일 형식이 올바르지 않습니다</p>}
       {!isValidPassword && <p>비밀번호는 8자 이상이어야 합니다</p>}
       <button data-testid="signup-button" disabled={disabled}>

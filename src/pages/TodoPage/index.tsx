@@ -6,6 +6,7 @@ import {
 import { GetTodosResponse, getTodos } from '@/apis/api/todos/getTodos';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
 import { LogoutBtn } from '@/components/elements/LogoutBtn';
+import { FormLabel } from '@/components/styled/FormLabel';
 import { H1 } from '@/components/styled/H1';
 import { Todo } from '@/types/Todo';
 import styled from '@emotion/styled';
@@ -68,7 +69,7 @@ const TodoPage = () => {
   return (
     <Layout>
       <H1>TODO</H1>
-      <label>
+      <FormLabel>
         <input
           data-testid="new-todo-input"
           value={todoInput}
@@ -77,7 +78,7 @@ const TodoPage = () => {
         <button data-testid="new-todo-add-button" onClick={handleAddBtnClick}>
           추가
         </button>
-      </label>
+      </FormLabel>
       <TodoList todos={todos} setTodos={setTodos} />
       <LogoutBtn />
     </Layout>
