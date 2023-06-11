@@ -27,7 +27,6 @@ const SigninPage = () => {
       const res = await signin(formData);
       if (res.status === 200) {
         setAccessToken(res.data.access_token);
-        alert('로그인 성공'); // TODO: replace with toast
         navigate(ROUTES.TODO);
       }
     } catch (e: unknown) {
