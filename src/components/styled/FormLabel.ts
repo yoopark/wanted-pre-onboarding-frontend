@@ -3,5 +3,5 @@ import styled from '@emotion/styled';
 export const FormLabel = styled.label`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
 `;

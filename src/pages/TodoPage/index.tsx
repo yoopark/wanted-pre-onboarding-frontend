@@ -89,7 +89,7 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4rem;
+  gap: 5rem;
 `;
 
 export default TodoPage;

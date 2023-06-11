@@ -21,7 +21,7 @@ const Layout = styled.div`
   align-items: center;
   max-width: 640px;
   margin: auto;
-  padding: 0 1rem;
+  padding: 0 2rem;
   min-height: 100vh;
   ${glassmorphism}
 `;

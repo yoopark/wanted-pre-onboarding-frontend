@@ -63,6 +63,7 @@ export const global = css`
   body {
     background: url('/background.jpeg');
     background-size: cover;
+    font-size: 1.4rem;
   }
 
   ::moz-selection {

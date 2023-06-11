@@ -1,6 +1,7 @@
 import { DeleteTodoResponse, deleteTodo } from '@/apis/api/todos/deleteTodo';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
 import { Todo } from '@/types/Todo';
+import styled from '@emotion/styled';
 import { TodoItem } from './TodoItem';
 
 type TodoListProps = {
@@ -41,7 +42,7 @@ export const TodoList = ({ todos, setTodos }: TodoListProps) => {
   };
 
   return (
-    <ul>
+    <List>
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}
@@ -50,6 +51,12 @@ export const TodoList = ({ todos, setTodos }: TodoListProps) => {
           setTodoInTodos={setTodoInTodos}
         />
       ))}
-    </ul>
+    </List>
   );
 };
+
+const List = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
