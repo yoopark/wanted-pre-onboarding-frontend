@@ -21,4 +21,6 @@ const Layout = styled.div`
   max-width: 640px;
   margin: auto;
   padding: 0 1rem;
+  min-height: 100vh;
+  background-color: #ffffff;
 `;
