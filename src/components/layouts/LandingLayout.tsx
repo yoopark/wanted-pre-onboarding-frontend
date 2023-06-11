@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import { Outlet } from 'react-router-dom';
-import { LogoBtn } from '../elements/LogoBtn';
+import { Header } from '../elements/Header';
 
 export const LandingLayout = () => {
   return (
     <Layout>
-      <LogoBtn />
+      <Header />
       <Outlet />
     </Layout>
   );
