@@ -21,11 +21,11 @@ const TodoPage = () => {
   const handleAddBtnClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const newCreateTodoRequest: CreateTodoRequest = {
+    const createTodoRequest: CreateTodoRequest = {
       todo: todoInput,
     };
     try {
-      const res = await createTodo(newCreateTodoRequest);
+      const res = await createTodo(createTodoRequest);
       if (res.status === 201) {
         const { id, todo, isCompleted } = res.data;
         const newTodo: Todo = { id, todo, isCompleted };
