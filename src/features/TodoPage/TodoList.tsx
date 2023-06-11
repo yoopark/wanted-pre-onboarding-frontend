@@ -69,6 +69,16 @@ export const TodoList = ({ todos, setTodos }: TodoListProps) => {
     }
   };
 
+  const setTodoInTodos = (newTodo: Todo) => {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === newTodo.id) {
+        return newTodo;
+      }
+      return todo;
+    });
+    setTodos(newTodos);
+  };
+
   return (
     <ul>
       {todos.map((todo) => (
@@ -77,6 +87,7 @@ export const TodoList = ({ todos, setTodos }: TodoListProps) => {
           todo={todo}
           onCheckboxClick={(e) => handleCheckboxClick(e, todo)}
           onDeleteBtnClick={(e) => handleDeleteBtnClick(e, todo.id)}
+          setTodoInTodos={setTodoInTodos}
         />
       ))}
     </ul>

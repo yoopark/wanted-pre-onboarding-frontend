@@ -1,3 +1,9 @@
+import {
+  UpdateTodoRequest,
+  UpdateTodoResponse,
+  putTodo,
+} from '@/apis/api/todos/putTodo';
+import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
 import type { Todo } from '@/types/Todo';
 import { useState } from 'react';
 
@@ -5,12 +11,14 @@ type TodoItemProps = {
   todo: Todo;
   onCheckboxClick: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onDeleteBtnClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  setTodoInTodos: (todo: Todo) => void;
 };
 
 export const TodoItem = ({
   todo,
   onCheckboxClick,
   onDeleteBtnClick,
+  setTodoInTodos,
 }: TodoItemProps) => {
   const [isModifyMode, setIsModifyMode] = useState<boolean>(false);
   const [modifyTodoInput, setModifyTodoInput] = useState<string>(todo.todo);
@@ -20,10 +28,12 @@ export const TodoItem = ({
     setIsModifyMode(true);
   };
 
-  const handleSubmitBtnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleChangeModifyTodoInput = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     e.preventDefault();
-    /* 수정 로직 */
-    setIsModifyMode(false);
+    const { value } = e.target;
+    setModifyTodoInput(value);
   };
 
   const handleCancelBtnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -32,12 +42,34 @@ export const TodoItem = ({
     setIsModifyMode(false);
   };
 
-  const handleChangeModifyTodoInput = (
-    e: React.ChangeEvent<HTMLInputElement>,
+  const handleSubmitBtnClick = async (
+    e: React.MouseEvent<HTMLButtonElement>,
   ) => {
     e.preventDefault();
-    const { value } = e.target;
-    setModifyTodoInput(value);
+
+    const { id, isCompleted } = todo;
+    const newUpdateTodoRequest: UpdateTodoRequest = {
+      todo: modifyTodoInput,
+      isCompleted,
+    };
+    if (modifyTodoInput === todo.todo) {
+      return;
+    }
+    try {
+      const res = await putTodo(id, newUpdateTodoRequest);
+      if (res.status === 200) {
+        const { id, todo: todoText, isCompleted } = res.data;
+        const newTodo = { id, todo: todoText, isCompleted };
+        setTodoInTodos(newTodo);
+      }
+    } catch (e: unknown) {
+      if (isAxiosErrorFromWantedPreOnboardingServer<UpdateTodoResponse>(e)) {
+        const { message } = e.response.data;
+        alert(message);
+        return; // 수정 실패 시, 수정 모드 유지
+      }
+    }
+    setIsModifyMode(false);
   };
 
   return (
