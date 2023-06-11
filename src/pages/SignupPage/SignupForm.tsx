@@ -3,7 +3,8 @@ import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosE
 import { ROUTES } from '@/routes/ROUTES';
 import type { SignupFormData } from '@/types/SignFormData';
 import { useForm } from '@/utils/useForm';
-import { verifySignFormData } from '@/utils/verifySignFormData';
+import { verifyEmailConstraint } from '@/utils/verifyEmailConstraint';
+import { verifyPasswordConstraint } from '@/utils/verifyPasswordConstraint';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,10 +16,16 @@ export const SignupForm = () => {
   });
   const [disabled, setDisabled] = useState<boolean>(true);
   const [passwordShown, setPasswordShown] = useState<boolean>(false);
+  const [isValidEmail, setIsValidEmail] = useState<boolean>(false);
+  const [isValidPassword, setIsValidPassword] = useState<boolean>(false);
 
   useEffect(() => {
-    const isValidSignFormData = verifySignFormData(formData);
-    setDisabled(!isValidSignFormData);
+    const { email, password } = formData;
+    const isValidEmail = verifyEmailConstraint(email);
+    const isValidPassword = verifyPasswordConstraint(password);
+    setIsValidEmail(isValidEmail);
+    setIsValidPassword(isValidPassword);
+    setDisabled(!(isValidEmail && isValidPassword));
   }, [formData]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -64,6 +71,8 @@ export const SignupForm = () => {
         />
         비밀번호 보이기
       </label>
+      {!isValidEmail && <p>이메일 형식이 올바르지 않습니다</p>}
+      {!isValidPassword && <p>비밀번호는 8자 이상이어야 합니다</p>}
       <button data-testid="signup-button" disabled={disabled}>
         회원가입
       </button>
