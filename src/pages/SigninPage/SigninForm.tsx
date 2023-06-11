@@ -1,11 +1,13 @@
 import { SigninResponse, signin } from '@/apis/api/auth/signin';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
+import { FormLabel } from '@/components/styled/FormLabel';
 import { ROUTES } from '@/routes/ROUTES';
 import type { SigninFormData } from '@/types/SignFormData';
 import { setAccessToken } from '@/utils/localStorage';
 import { useForm } from '@/utils/useForm';
 import { verifyEmailConstraint } from '@/utils/verifyEmailConstraint';
 import { verifyPasswordConstraint } from '@/utils/verifyPasswordConstraint';
+import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -54,33 +56,46 @@ export const SigninForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        data-testid="email-input"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-      />
-      <input
-        data-testid="password-input"
-        type={!passwordShown ? 'password' : 'text'}
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-      />
-      <label>
+    <Form onSubmit={handleSubmit}>
+      <FormLabel>
+        이메일
+        <input
+          data-testid="email-input"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+      </FormLabel>
+      <FormLabel>
+        비밀번호
+        <input
+          data-testid="password-input"
+          type={!passwordShown ? 'password' : 'text'}
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+      </FormLabel>
+      <FormLabel>
         <input
           type="checkbox"
           checked={passwordShown}
           onChange={handleCheckboxChange}
         />
         비밀번호 보이기
-      </label>
-      {!isValidEmail && <p>이메일 형식이 올바르지 않습니다</p>}
-      {!isValidPassword && <p>비밀번호는 8자 이상이어야 합니다</p>}
+      </FormLabel>
+      {/* {!isValidEmail && <p>이메일 형식이 올바르지 않습니다</p>}
+      {!isValidPassword && <p>비밀번호는 8자 이상이어야 합니다</p>} */}
       <button data-testid="signin-button" disabled={disabled}>
         로그인
       </button>
-    </form>
+    </Form>
   );
 };
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+`;

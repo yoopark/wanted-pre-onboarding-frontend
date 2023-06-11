@@ -5,6 +5,7 @@ import {
 } from '@/apis/api/todos/updateTodo';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
 import type { Todo } from '@/types/Todo';
+import styled from '@emotion/styled';
 import { useState } from 'react';
 
 type TodoItemProps = {
@@ -99,7 +100,7 @@ export const TodoItem = ({
   };
 
   return (
-    <li>
+    <Item>
       {!isModifyMode ? (
         <>
           <label>
@@ -132,6 +133,12 @@ export const TodoItem = ({
           </button>
         </>
       )}
-    </li>
+    </Item>
   );
 };
+
+const Item = styled.li`
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+`;

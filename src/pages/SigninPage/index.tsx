@@ -1,18 +1,23 @@
-import { ROUTES } from '@/routes/ROUTES';
-import { Link } from 'react-router-dom';
+import { H1 } from '@/components/styled/H1';
+import styled from '@emotion/styled';
 import { SigninForm } from './SigninForm';
+import { SignupMsg } from './SignupMsg';
 
 const SigninPage = () => {
   return (
-    <>
-      <h1>로그인</h1>
+    <Layout>
+      <H1>로그인</H1>
       <SigninForm />
-      <span>아직 계정이 없다면&nbsp;</span>
-      <span>
-        <Link to={ROUTES.SIGNUP}>회원가입</Link>
-      </span>
-    </>
+      <SignupMsg />
+    </Layout>
   );
 };
+
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5rem;
+`;
 
 export default SigninPage;
