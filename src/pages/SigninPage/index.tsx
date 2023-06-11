@@ -1,3 +1,4 @@
+import { H1 } from '@/components/styled/H1';
 import styled from '@emotion/styled';
 import { SigninForm } from './SigninForm';
 import { SignupMsg } from './SignupMsg';
@@ -5,7 +6,7 @@ import { SignupMsg } from './SignupMsg';
 const SigninPage = () => {
   return (
     <Layout>
-      <h1>로그인</h1>
+      <H1>로그인</H1>
       <SigninForm />
       <SignupMsg />
     </Layout>

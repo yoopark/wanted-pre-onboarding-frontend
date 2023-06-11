@@ -1,10 +1,11 @@
+import { H1 } from '@/components/styled/H1';
 import styled from '@emotion/styled';
 import { SignupForm } from './SignupForm';
 
 const SignupPage = () => {
   return (
     <Layout>
-      <h1>회원가입</h1>
+      <H1>회원가입</H1>
       <SignupForm />
     </Layout>
   );

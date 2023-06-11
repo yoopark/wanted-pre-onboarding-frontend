@@ -6,6 +6,7 @@ import {
 import { GetTodosResponse, getTodos } from '@/apis/api/todos/getTodos';
 import { isAxiosErrorFromWantedPreOnboardingServer } from '@/apis/utils/isAxiosErrorFromWantedPreOnboardingServer';
 import { LogoutBtn } from '@/components/elements/LogoutBtn';
+import { H1 } from '@/components/styled/H1';
 import { Todo } from '@/types/Todo';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
@@ -66,7 +67,7 @@ const TodoPage = () => {
 
   return (
     <Layout>
-      <h1>TODO</h1>
+      <H1>TODO</H1>
       <label>
         <input
           data-testid="new-todo-input"
