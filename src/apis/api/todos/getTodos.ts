@@ -1,5 +1,5 @@
 import { API_ROUTES } from '@/apis/constants/API_ROUTES';
-import { apiAuthJsonInstance } from '@/apis/utils/instance';
+import { apiAuthJsonInstance } from '@/apis/instance';
 
 export type GetTodosRequest = void;
 

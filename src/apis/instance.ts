@@ -1,5 +1,5 @@
 import axios, { InternalAxiosRequestConfig } from 'axios';
-import { ACCESS_TOKEN_KEY, BASE_URL } from '../constants';
+import { ACCESS_TOKEN_KEY, BASE_URL } from './constants';
 
 const axiosApi = (url: string, headers: { [key: string]: string } = {}) => {
   const instance = axios.create({ baseURL: url, ...headers });

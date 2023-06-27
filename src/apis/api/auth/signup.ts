@@ -1,5 +1,5 @@
 import { API_ROUTES } from '@/apis/constants/API_ROUTES';
-import { apiJsonInstance } from '@/apis/utils/instance';
+import { apiJsonInstance } from '@/apis/instance';
 
 export type SignupRequest = {
   email: string;
