@@ -1,5 +1,5 @@
 import { API_ROUTES } from '@/apis/constants/API_ROUTES';
-import { apiAuthJsonInstance } from '@/apis/instance';
+import { apiAuthInstance } from '@/apis/instance';
 
 export type UpdateTodoRequest = {
   todo: string;
@@ -14,7 +14,7 @@ export type UpdateTodoResponse = {
 };
 
 export const updateTodo = (id: number, data: UpdateTodoRequest) => {
-  return apiAuthJsonInstance.put<UpdateTodoResponse>(
+  return apiAuthInstance.put<UpdateTodoResponse>(
     `${API_ROUTES.TODO}/${id}`,
     data,
   );

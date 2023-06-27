@@ -1,5 +1,5 @@
 import { API_ROUTES } from '@/apis/constants/API_ROUTES';
-import { apiJsonInstance } from '@/apis/instance';
+import { apiInstance } from '@/apis/instance';
 
 export type SigninRequest = {
   email: string;
@@ -11,5 +11,5 @@ export type SigninResponse = {
 };
 
 export const signin = (data: SigninRequest) => {
-  return apiJsonInstance.post<SigninResponse>(API_ROUTES.SIGNIN, data);
+  return apiInstance.post<SigninResponse>(API_ROUTES.SIGNIN, data);
 };

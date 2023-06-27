@@ -1,5 +1,5 @@
 import { API_ROUTES } from '@/apis/constants/API_ROUTES';
-import { apiAuthJsonInstance } from '@/apis/instance';
+import { apiAuthInstance } from '@/apis/instance';
 
 export type GetTodosRequest = void;
 
@@ -12,5 +12,5 @@ export type GetTodosResponse = {
 }[];
 
 export const getTodos = () => {
-  return apiAuthJsonInstance.get<GetTodosResponse>(API_ROUTES.TODO);
+  return apiAuthInstance.get<GetTodosResponse>(API_ROUTES.TODO);
 };
